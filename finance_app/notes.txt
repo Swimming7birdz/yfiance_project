@@ -1,0 +1,15 @@
+Goals:
+- have x-amount of shares, what is the worth 
+
+
+- add function to print if table is empty
+
+
+Polygon.io: (depricated)
+
+def return_price(stock_name):
+    api_url = "https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-01-09?apiKey=aDBzAPWJIpegBiIKlSWcjqUWIIlYjBVD"
+    
+    get_request = "https://api.polygon.io/v2/aggs/ticker/" + stock_name +"/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&limit=120&apiKey=aDBzAPWJIpegBiIKlSWcjqUWIIlYjBVD"
+    response = requests.get(get_request)
+    print(response.json())
