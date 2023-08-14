@@ -13,7 +13,7 @@ def print_news_info(stock_name):
         print("Link to Article: " + article_info_map.get('link'))
         print()
 
-def check_available(stock_name):
+def ticker_exists(stock_name):
     #Checks if an asset is available via the Yahoo Finance API.
     stock = create_ticker(stock_name)
 
@@ -35,17 +35,17 @@ def stock_value(stock_name, amount):
         #returns accurate price when markets are up
         #returns stock price 2-5 minutes before markets closed 
 
+        total_value = float(curr_value) * float(amount)
+
+        print(stock_name)
+        print("Current Stock Price: " + str(curr_value))
+        print()
+        print("Total Stock value: " + str(total_value))
+
     except IndexError:
-        sys.exit("Error occurred, terminating run")
+        sys.exit("Error occurred, terminating stock value calculation")
 
-    total_value = float(curr_value) * float(amount)
-
-    print()
-    print("Current Stock Price: " + str(curr_value))
-    print()
-    print("Total stock value: " + str(total_value))
-    print()
-
+    
 
 
 

@@ -2,7 +2,6 @@ Goals:
 - have x-amount of shares, what is the worth 
 
 
-- add function to print if table is empty
 
 
 Polygon.io: (depricated)
