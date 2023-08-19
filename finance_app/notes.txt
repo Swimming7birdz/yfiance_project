@@ -1,7 +1,7 @@
 Goals:
 - have x-amount of shares, what is the worth 
-
-
+- use pandas to report stats on stocks in database https://www.tutorialspoint.com/python_pandas/python_pandas_descriptive_statistics.htm 
+- use pandas to visualize stock price change for multiple stocks
 
 
 Polygon.io: (depricated)

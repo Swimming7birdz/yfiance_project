@@ -30,32 +30,41 @@ ticker_exists(stock_name)
 amount = 45
 
 
-stock_name1 = "AAPL"
+stock_name1 = "T"
 ticker_exists(stock_name1)
 amount1 = 35
 
+stock_name2 = "AAPL"
 
+
+stock_list = [stock_name, stock_name1, stock_name2]
+compare_stocks(stock_list)
+
+'''
 add_stock(stock_name, amount)
 view_table()
 
 if verify_stock(stock_name) == True:
     update_stock_amount(stock_name, 55)
     num_shares = get_stock_amount(stock_name)
-    print(stock_value(stock_name, num_shares))
+    value_share = stock_value(stock_name)
+    total_value_shares = total_stock_value(value_share, amount)
+    print(value_share)
+    print(total_value_shares)
 
 
 if verify_stock(stock_name1) == True:
     update_stock_amount(stock_name1, 100)
     num_shares1 = get_stock_amount(stock_name1)
-    print(stock_value(stock_name1, num_shares1))
+    print(stock_value(stock_name1))
 
 view_table()
 
 remove_stock(stock_name)
 remove_stock(stock_name1)
 
+view_table()
 
-'''
 print("Enter a stock:")
 stock_name = input()
 #stock_name = "VOO"

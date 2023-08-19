@@ -56,6 +56,17 @@ def show_tables(db_name):
 
 
 def show_table_contents(db_name, table_name):
+    myresult = return_table_contents(db_name, table_name)
+
+    if len(myresult) == 0:
+        print("The Database is empty!")
+
+    else:
+        for row in myresult:
+            print(row)
+
+    
+def return_table_contents(db_name, table_name):
     mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
 
@@ -63,16 +74,11 @@ def show_table_contents(db_name, table_name):
     mycursor.execute(slq_show_all) 
     myresult = mycursor.fetchall()
 
-    if len(myresult) == 0:
-        print("The Database is empty")
-
-    else:
-        for row in myresult:
-            print(row)
-
     mycursor.close() 
     mydb.close()
-    
+
+    return myresult
+
 
 def insert_table(db_name, table_name, stock_name, num_shares):
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
