@@ -67,7 +67,7 @@ def stock_stats(stock_name):
     stock_info["trailingAnnualDividendRate"] = complete_stock_data.get("trailingAnnualDividendRate")
     stock_info["trailingAnnualDividendYield"] = complete_stock_data.get("trailingAnnualDividendYield")
 
-    return stock_info #list with name of stock, open, high, low, close
+    return stock_info #list with 52 week high-lo-change, open, high, low, close, dividend-rate-yield-annual
     
 def compare_stocks(stock_list):
     weekLow, weekHigh, weekChange = [], [], []
@@ -113,19 +113,6 @@ def compare_stocks(stock_list):
         if stock_info.get("trailingAnnualDividendYield") == None: annDvYield.append(np.nan)
         else: annDvYield.append(stock_info.get("trailingAnnualDividendYield"))
 
-    '''print(len(weekLow))
-    print(weekHigh)
-    print(weekChange)
-    print(len(prevClose))
-    print(len(open))
-    print(len(low))
-    print(len(high))
-    print(len(price))
-    print(len(dvRate))
-    print(len(dvYield))
-    print(len(annDvRate))
-    print(len(annDvYield))'''
-
     data = {
         "fiftyTwoWeekLow": weekLow,
         "fiftyTwoWeekHigh": weekHigh,
@@ -149,17 +136,44 @@ def compare_stocks(stock_list):
     print(dataFrame.describe())
 
 
-def db_stock_stats():
+def db_stock_stats(stock_name, amount):
+    stock_info = {}
+    curr_price = stock_value(stock_name)
+    stock_info["amount"] = amount
+    stock_info["sharePrice"] = curr_price
+    stock_info["totalShareValue"] = total_stock_value(curr_price, amount)
 
-    #name of stock, amount of shares, share price, total_stock value
-    return 0
+    # amount of shares, share price, total_stock value
+    return stock_info
 
 
 def db_compare_stocks(db_list):
     #db_list is list (of tuples) which contains the stock name and share amount
+    share_amount, share_price, total_share_value = [], [], []
+    all_stock_names = []
+
+    for db_info in db_list:
+        stock_name = db_info[0]
+        all_stock_names.append(stock_name)
+        amount = db_info[1]
+
+        db_stock_info = db_stock_stats(stock_name, amount)
+        share_amount.append(db_stock_info.get("amount"))
+        share_price.append(db_stock_info.get("sharePrice"))
+        total_share_value.append(db_stock_info.get("totalShareValue"))
+
+    data = {
+        "amount": share_amount,
+        "sharePrice": share_price,
+        "totalShareValue": total_share_value
+    }
 
     #for each stock call db_stock_stats and put returned list into corresponding pd.series
-    return 0
+    dataFrame = pd.DataFrame(data, index=all_stock_names)
+    
+    print(dataFrame)
+    print()
+    print(dataFrame.describe())
 
 '''
 print_news_info(stock.news)

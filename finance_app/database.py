@@ -89,15 +89,19 @@ def insert_table(db_name, table_name, stock_name, num_shares):
     "VALUES(%s, %s)")
 
     stock_summary = (stock_name, num_shares)
+    status = db_contains(db_name, table_name, stock_name)
     
-    try:
-        mycursor.execute(sql_insert, stock_summary)
-        mydb.commit()
-        print("Record inserted " + stock_name + " with " + str(num_shares) + " number of shares")
-    
-    except:
-        mydb.rollback()
-        print("Insertion Failed")
+    if status == "none":
+        try:
+            mycursor.execute(sql_insert, stock_summary)
+            mydb.commit()
+            print("Record inserted " + stock_name + " with " + str(num_shares) + " number of shares")
+        
+        except:
+            mydb.rollback()
+            print("Insertion Failed")
+    else:
+        print(stock_name + " already appears in the Database")
 
     mycursor.close() 
     mydb.close()   
@@ -106,8 +110,9 @@ def insert_table(db_name, table_name, stock_name, num_shares):
 def stock_amount(db_name, table_name, stock_name):
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
+    status = db_contains(db_name, table_name, stock_name)
 
-    if db_contains(db_name, table_name, stock_name) == True:
+    if status == "once":
         VALUE = "AMOUNT"
         KEY = "NAME"
         sql_show_stock = "SELECT " + VALUE + " FROM " + table_name + " WHERE " + KEY + " = '" + stock_name + "'"
@@ -121,6 +126,12 @@ def stock_amount(db_name, table_name, stock_name):
             mydb.rollback()
             print("Can't retrieve" + stock_name + "amount")
 
+    elif status == "many":
+        print(stock_name + " already appears in the Database")
+
+    else: 
+        print(stock_name + " not in Database")
+
     mycursor.close() 
     mydb.close()   
 
@@ -128,8 +139,9 @@ def stock_amount(db_name, table_name, stock_name):
 def remove_from_table(db_name, table_name, stock_name):
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
+    status = db_contains(db_name, table_name, stock_name)
 
-    if db_contains(db_name, table_name, stock_name) == True:
+    if status == "once":
         KEY = "NAME"
         sql_remove = "DELETE FROM " + table_name + " WHERE " + KEY + " = %s"
         name = (stock_name, )
@@ -143,6 +155,12 @@ def remove_from_table(db_name, table_name, stock_name):
             mydb.rollback()
             print("Deletion Failed")
 
+    elif status == "many":
+        print(stock_name + " already appears in the Database")
+
+    else:
+        print(stock_name + " not in Database")
+
     mycursor.close() 
     mydb.close()    
 
@@ -150,8 +168,9 @@ def remove_from_table(db_name, table_name, stock_name):
 def update_table(db_name, table_name, stock_name, num_shares):
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
+    status = db_contains(db_name, table_name, stock_name)
 
-    if db_contains(db_name, table_name, stock_name) == True:
+    if status == "once":
         VALUE = "AMOUNT"
         KEY = "NAME"
 
@@ -166,12 +185,17 @@ def update_table(db_name, table_name, stock_name, num_shares):
         except:
             mydb.rollback()
             print("Update Failed")
+    elif status == "many":
+        print(stock_name + " already appears in the Database")
+
+    else:
+        print(stock_name + " not in Database")
 
     mycursor.close()
     mydb.close()
 
 
-def db_contains(db_name, table_name, stock_name) -> bool:
+def db_contains(db_name, table_name, stock_name):
     mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
 
@@ -185,16 +209,13 @@ def db_contains(db_name, table_name, stock_name) -> bool:
         result = mycursor.fetchall()
         
         if len(result) == 1:
-            return True
+            return "once"
 
         elif len(result) > 1:
-            print(stock_name + " appears multiple times in Database")
-            return True
+            return "many"
 
         else:
-            print(stock_name + " not in Database")
-            return False
-
+            return "none"
     except:
         print("Check Failed")
 
