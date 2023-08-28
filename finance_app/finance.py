@@ -2,6 +2,7 @@ import yfinance as yf
 import sys
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 def create_ticker(stock_name):
     return yf.Ticker(stock_name)
@@ -134,6 +135,7 @@ def compare_stocks(stock_list):
     print(dataFrame)
     print()
     print(dataFrame.describe())
+    visualize_stocks(dataFrame)
 
 
 def db_stock_stats(stock_name, amount):
@@ -168,12 +170,26 @@ def db_compare_stocks(db_list):
         "totalShareValue": total_share_value
     }
 
+    
     #for each stock call db_stock_stats and put returned list into corresponding pd.series
     dataFrame = pd.DataFrame(data, index=all_stock_names)
     
     print(dataFrame)
     print()
     print(dataFrame.describe())
+    visualize_stocks(dataFrame)
+
+
+
+def visualize_stocks(dataFrame):
+    try:
+        dataFrame.plot.bar(rot = 0)
+
+        plt.xlabel('Ticker')
+        plt.show()
+
+    except:
+        print("Graph failed to generate")
 
 '''
 print_news_info(stock.news)

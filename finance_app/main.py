@@ -11,21 +11,21 @@ amount1 = 35
 stock_name2 = "AAPL"
 
 
-#stock_list = [stock_name, stock_name1, stock_name2]
-#compare_stocks(stock_list)
+stock_list = [stock_name, stock_name1, stock_name2]
+compare_stocks(stock_list)
 
 
-add_stock(stock_name, amount)
-add_stock(stock_name1, amount1)
-view_table()
+#add_stock(stock_name, amount)
+#add_stock(stock_name1, amount1)
+#view_table()
 
-db_list = return_table()
-db_compare_stocks(db_list)
+#db_list = return_table()
+#db_compare_stocks(db_list)
 
-remove_stock(stock_name)
-remove_stock(stock_name1)
-remove_stock(stock_name)
-remove_stock(stock_name1)
+#remove_stock(stock_name)
+#remove_stock(stock_name1)
+#remove_stock(stock_name)
+#remove_stock(stock_name1)
 
 
 '''
