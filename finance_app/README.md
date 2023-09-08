@@ -1,1 +1,1 @@
-yfinance_projec
+yfinance_project
