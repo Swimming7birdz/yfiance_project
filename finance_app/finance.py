@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def create_ticker(stock_name):
     return yf.Ticker(stock_name)
 
-def print_news_info(stock_name):
+def print_news_info(stock_name): #returns every article (with their title and link) regarding stock_name
     stock = create_ticker(stock_name)
     news_info_list = stock.news
     for article_info_map in news_info_list:
@@ -16,8 +16,7 @@ def print_news_info(stock_name):
         print("Link to Article: " + article_info_map.get('link'))
         print()
 
-def ticker_exists(stock_name):
-    #Checks if an asset is available via the Yahoo Finance API.
+def ticker_exists(stock_name): #Checks if stock_name is available via the Yahoo Finance API.
     stock = create_ticker(stock_name)
 
     info = stock.history(period='7d', interval='1d')
@@ -26,8 +25,7 @@ def ticker_exists(stock_name):
         sys.exit("Invalid Stock Name")
     
 
-def stock_value(stock_name):
-    #Returns current market value of stock and the sum of n-amount of this stock
+def stock_value(stock_name): #Returns current market value of stock and the sum of n-amount of this stock
     stock = create_ticker(stock_name)
 
     #need to return price at closing when markets are closed
@@ -45,74 +43,39 @@ def stock_value(stock_name):
         sys.exit("Error occurred, terminating stock value calculation")
 
     
-def total_stock_value(curr_value, amount):
+def total_stock_value(curr_value, amount): #calculate total value of stock_name
     return float(curr_value) * float(amount)
 
 
-def stock_stats(stock_name):
+def stock_stats(stock_name): #return a list with all the stock's metrics: 52 week high-lo-change, open, high, low, close, dividend-rate-yield-annual
     stock = create_ticker(stock_name)
 
     complete_stock_data = stock.info
     stock_info = {}
+
+    metrics = ["fiftyTwoWeekLow","fiftyTwoWeekHigh","52WeekChange","previousClose","open","dayLow","dayHigh","currentPrice","dividendRate","dividendYield","trailingAnnualDividendRate","trailingAnnualDividendYield"]
     
-    stock_info["fiftyTwoWeekLow"] = complete_stock_data.get("fiftyTwoWeekLow")
-    stock_info["fiftyTwoWeekHigh"] = complete_stock_data.get("fiftyTwoWeekHigh")
-    stock_info["52WeekChange"] = complete_stock_data.get("52WeekChange")
-    stock_info["previousClose"] = complete_stock_data.get("previousClose")
-    stock_info["open"] = complete_stock_data.get("open")
-    stock_info["dayLow"] = complete_stock_data.get("dayLow")
-    stock_info["dayHigh"] = complete_stock_data.get("dayHigh")
-    stock_info["currentPrice"] = complete_stock_data.get("currentPrice")
-    stock_info["dividendRate"] = complete_stock_data.get("dividendRate")
-    stock_info["dividendYield"] = complete_stock_data.get("dividendYield")
-    stock_info["trailingAnnualDividendRate"] = complete_stock_data.get("trailingAnnualDividendRate")
-    stock_info["trailingAnnualDividendYield"] = complete_stock_data.get("trailingAnnualDividendYield")
+    for metric in metrics:
+        stock_info[metric] = complete_stock_data.get(metric)
 
     return stock_info #list with 52 week high-lo-change, open, high, low, close, dividend-rate-yield-annual
     
-def compare_stocks(stock_list):
+def compare_stocks(stock_list): #prints the data metrics of stocks in stock_list and generates graph to compare their data metrics
     weekLow, weekHigh, weekChange = [], [], []
     prevClose, open, low, high, price = [], [], [], [], []
     dvRate, dvYield, annDvYield, annDvRate = [], [], [], []
 
+    metrics = ["fiftyTwoWeekLow","fiftyTwoWeekHigh","52WeekChange","previousClose","open","dayLow","dayHigh","currentPrice","dividendRate","dividendYield","trailingAnnualDividendRate","trailingAnnualDividendYield"]
+    metric_lists = [weekLow, weekHigh, weekChange, prevClose, open, low, high, price, dvRate, dvYield, annDvRate, annDvYield]
+
+    metric_data = list(zip(metrics, metric_lists))
+
     for stock_name in stock_list:
         stock_info = stock_stats(stock_name)
-        
-        if stock_info.get("fiftyTwoWeekLow") == None: weekLow.append(np.nan)
-        else: weekLow.append(stock_info.get("fiftyTwoWeekLow"))
 
-        if stock_info.get("fiftyTwoWeekHigh") == None: weekHigh.append(np.nan)
-        else: weekHigh.append(stock_info.get("fiftyTwoWeekHigh"))
-
-        if stock_info.get("52WeekChange") == None: weekChange.append(np.nan)
-        else: weekChange.append(stock_info.get("52WeekChange"))
-        
-        if stock_info.get("previousClose") == None: prevClose.append(np.nan)
-        else: prevClose.append(stock_info.get("previousClose"))
-
-        if stock_info.get("open") == None: open.append(np.nan)
-        else: open.append(stock_info.get("open"))
-        
-        if stock_info.get("dayLow") == None: low.append(np.nan)
-        else: low.append(stock_info.get("dayLow"))
-
-        if stock_info.get("dayHigh") == None: high.append(np.nan)
-        else: high.append(stock_info.get("dayHigh"))
-
-        if stock_info.get("currentPrice") == None: price.append(np.nan)
-        else: price.append(stock_info.get("currentPrice"))
-
-        if stock_info.get("dividendRate") == None: dvRate.append(np.nan)
-        else: dvRate.append(stock_info.get("dividendRate"))
-
-        if stock_info.get("dividendYield") == None: dvYield.append(np.nan)
-        else: dvYield.append(stock_info.get("dividendYield"))
-
-        if stock_info.get("trailingAnnualDividendRate") == None: annDvRate.append(np.nan)
-        else: annDvRate.append(stock_info.get("trailingAnnualDividendRate"))
-
-        if stock_info.get("trailingAnnualDividendYield") == None: annDvYield.append(np.nan)
-        else: annDvYield.append(stock_info.get("trailingAnnualDividendYield"))
+        for metric, metric_list in metric_data:
+            if stock_info.get(metric) == None: metric_list.append(np.nan)
+            else: metric_list.append(stock_info.get(metric))            
 
     data = {
         "fiftyTwoWeekLow": weekLow,
@@ -149,8 +112,8 @@ def db_stock_stats(stock_name, amount):
     return stock_info
 
 
-def db_compare_stocks(db_list):
-    #db_list is list (of tuples) which contains the stock name and share amount
+def db_compare_stocks(db_list): #prints the data metrics of stocks in the database and generates graph to compare their data metrics
+    #db_list is list (of tuples) which contains the stock name and share amount [must call return_table]
     share_amount, share_price, total_share_value = [], [], []
     all_stock_names = []
 
@@ -181,7 +144,7 @@ def db_compare_stocks(db_list):
 
 
 
-def visualize_stocks(dataFrame):
+def visualize_stocks(dataFrame):#generates graph of stock data metrics (name is x-axis)
     try:
         dataFrame.plot.bar(rot = 0)
 

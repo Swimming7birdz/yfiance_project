@@ -1,6 +1,8 @@
 import mysql.connector
 
 '''
+SET-UP DATABASE:
+
 # To connect MySQL database
 def create_database():
     mydb = mysql.connector.connect(
@@ -79,8 +81,16 @@ def return_table_contents(db_name, table_name):
 
     return myresult
 
+def return_stock_list(db_name, table_name):
+    contents = return_table_contents(db_name, table_name)
+    db_list = []
+    for pair in contents:
+        db_list.append(pair[0])
 
-def insert_table(db_name, table_name, stock_name, num_shares):
+    return db_list
+
+
+def insert_table(db_name, table_name, stock_name, num_shares): #insert stock and amount of shares
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
 
@@ -107,7 +117,7 @@ def insert_table(db_name, table_name, stock_name, num_shares):
     mydb.close()   
     
     
-def stock_amount(db_name, table_name, stock_name):
+def stock_amount(db_name, table_name, stock_name): #return number of shares of stock_name 
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
     status = db_contains(db_name, table_name, stock_name)
@@ -136,7 +146,7 @@ def stock_amount(db_name, table_name, stock_name):
     mydb.close()   
 
 
-def remove_from_table(db_name, table_name, stock_name):
+def remove_from_table(db_name, table_name, stock_name): #remove stock/amount of shares from database
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
     status = db_contains(db_name, table_name, stock_name)
@@ -165,7 +175,7 @@ def remove_from_table(db_name, table_name, stock_name):
     mydb.close()    
 
 
-def update_table(db_name, table_name, stock_name, num_shares):
+def update_table(db_name, table_name, stock_name, num_shares): #update the share amount for stock_name
     mydb = mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
     status = db_contains(db_name, table_name, stock_name)
@@ -195,7 +205,7 @@ def update_table(db_name, table_name, stock_name, num_shares):
     mydb.close()
 
 
-def db_contains(db_name, table_name, stock_name):
+def db_contains(db_name, table_name, stock_name): #verify if and/or how many times stock_name appears in database 
     mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
 

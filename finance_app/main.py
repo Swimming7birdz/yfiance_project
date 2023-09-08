@@ -1,34 +1,30 @@
 from interface import *
 
+
+#COMPARING STOCKS 
 stock_name = "VOO"
 ticker_exists(stock_name)
-amount = 45
 
 stock_name1 = "T"
 ticker_exists(stock_name1)
-amount1 = 35
 
 stock_name2 = "AAPL"
-
+ticker_exists(stock_name2)
 
 stock_list = [stock_name, stock_name1, stock_name2]
 compare_stocks(stock_list)
 
 
-#add_stock(stock_name, amount)
-#add_stock(stock_name1, amount1)
-#view_table()
+# add_stock('VOO', 45)
+# add_stock('MMM', 30)
 
-#db_list = return_table()
-#db_compare_stocks(db_list)
+# COMPARING DATABASE STOCKS
+db_compare_stocks(table_list())
 
-#remove_stock(stock_name)
-#remove_stock(stock_name1)
-#remove_stock(stock_name)
-#remove_stock(stock_name1)
 
 
 '''
+TESTING:
 
 if verify_stock(stock_name) == True:
     update_stock_amount(stock_name, 55)

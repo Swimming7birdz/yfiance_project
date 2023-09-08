@@ -23,5 +23,8 @@ def view_db_tables():
 def view_table():
     show_table_contents("portfolio", "STOCKS")
 
-def return_table():
+def table_list():
     return return_table_contents("portfolio", "STOCKS")
+
+def stock_names_list():
+    return return_stock_list("portfolio", "STOCKS")
