@@ -44,7 +44,7 @@ def create_table(db_name, table_name):
     mydb.close()
 '''
 
-def show_tables(db_name):
+def show_tables(db_name): #returns list of database tables
     mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
 
@@ -57,7 +57,7 @@ def show_tables(db_name):
     mydb.close()
 
 
-def show_table_contents(db_name, table_name):
+def show_table_contents(db_name, table_name): #returns contents of database
     myresult = return_table_contents(db_name, table_name)
 
     if len(myresult) == 0:
@@ -68,7 +68,7 @@ def show_table_contents(db_name, table_name):
             print(row)
 
     
-def return_table_contents(db_name, table_name):
+def return_table_contents(db_name, table_name): #fetches data from database
     mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
     mycursor = mydb.cursor()
 
@@ -81,7 +81,7 @@ def return_table_contents(db_name, table_name):
 
     return myresult
 
-def return_stock_list(db_name, table_name):
+def return_stock_list(db_name, table_name): #returns every stock in database
     contents = return_table_contents(db_name, table_name)
     db_list = []
     for pair in contents:

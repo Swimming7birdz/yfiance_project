@@ -1,14 +1,14 @@
 Goals:
-- have x-amount of shares, what is the worth 
+- store stocks in database
+- report value/other data from yfinance
 - use pandas to report stats on stocks in database https://www.tutorialspoint.com/python_pandas/python_pandas_descriptive_statistics.htm 
 - use pandas to visualize stock price change for multiple stocks
 
+Updates:
+- [11/5] .info for ticker object returns http error message, use either .fast_info or .download
+(https://github.com/ranaroussi/yfinance/issues/1729)
 
-Polygon.io: (depricated)
-
-def return_price(stock_name):
-    api_url = "https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-01-09?apiKey=aDBzAPWJIpegBiIKlSWcjqUWIIlYjBVD"
-    
-    get_request = "https://api.polygon.io/v2/aggs/ticker/" + stock_name +"/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&limit=120&apiKey=aDBzAPWJIpegBiIKlSWcjqUWIIlYjBVD"
-    response = requests.get(get_request)
-    print(response.json())
+Resources:
+- yfiance documentation: https://pypi.org/project/yfinance/
+- pandas documentation(api): https://pandas.pydata.org/docs/reference/index.html 
+- pandas documentation(user-guide): https://pandas.pydata.org/docs/user_guide/index.html 

@@ -50,25 +50,46 @@ def total_stock_value(curr_value, amount): #calculate total value of stock_name
 def stock_stats(stock_name): #return a list with all the stock's metrics: 52 week high-lo-change, open, high, low, close, dividend-rate-yield-annual
     stock = create_ticker(stock_name)
 
-    complete_stock_data = stock.info
-    stock_info = {}
+    try:
+         #[11/5] .info returns errors, using .fast_info 
+        complete_stock_data = stock.fast_info 
+    except:
+        sys.exit("Data can't be retrieved at the moment")
 
+    stock_info = {}
     metrics = ["fiftyTwoWeekLow","fiftyTwoWeekHigh","52WeekChange","previousClose","open","dayLow","dayHigh","currentPrice","dividendRate","dividendYield","trailingAnnualDividendRate","trailingAnnualDividendYield"]
     
-    for metric in metrics:
-        stock_info[metric] = complete_stock_data.get(metric)
+    #[11/5] .info returns errors, using .fast_info 
+    fast_metrics = ["open", "previousClose", "fiftyDayAverage", "twoHundredDayAverage", "yearChange", "yearHigh", "yearLow"]
+
+    for metric in fast_metrics: #replacing metric
+        try:
+            stock_info[metric] = complete_stock_data.get(metric)
+        except:
+            sys.exit("Data can't be retrieved at the moment")
 
     return stock_info #list with 52 week high-lo-change, open, high, low, close, dividend-rate-yield-annual
     
 def compare_stocks(stock_list): #prints the data metrics of stocks in stock_list and generates graph to compare their data metrics
+    ''' [11/5] .info returns errors, using .fast_info 
     weekLow, weekHigh, weekChange = [], [], []
     prevClose, open, low, high, price = [], [], [], [], []
     dvRate, dvYield, annDvYield, annDvRate = [], [], [], []
+    '''
 
+    open, previousClose = [], []
+    fiftyDayAverage, twoHundredDayAverage = [], []
+    yearChange, yearLow, yearHigh = [], [], []
+
+    ''' [11/5] .info returns errors, using .fast_info 
     metrics = ["fiftyTwoWeekLow","fiftyTwoWeekHigh","52WeekChange","previousClose","open","dayLow","dayHigh","currentPrice","dividendRate","dividendYield","trailingAnnualDividendRate","trailingAnnualDividendYield"]
     metric_lists = [weekLow, weekHigh, weekChange, prevClose, open, low, high, price, dvRate, dvYield, annDvRate, annDvYield]
+    '''
 
-    metric_data = list(zip(metrics, metric_lists))
+    fast_metrics = ["open", "previousClose", "fiftyDayAverage", "twoHundredDayAverage", "yearChange", "yearHigh", "yearLow"]
+    fast_metric_lists = [open, previousClose, fiftyDayAverage, twoHundredDayAverage, yearChange, yearLow, yearHigh]
+
+    metric_data = list(zip(fast_metrics, fast_metric_lists)) #replace with fast_metrics, and fast_metric_lists
 
     for stock_name in stock_list:
         stock_info = stock_stats(stock_name)
@@ -77,6 +98,7 @@ def compare_stocks(stock_list): #prints the data metrics of stocks in stock_list
             if stock_info.get(metric) == None: metric_list.append(np.nan)
             else: metric_list.append(stock_info.get(metric))            
 
+    '''
     data = {
         "fiftyTwoWeekLow": weekLow,
         "fiftyTwoWeekHigh": weekHigh,
@@ -91,14 +113,25 @@ def compare_stocks(stock_list): #prints the data metrics of stocks in stock_list
         "trailingAnnualDividendRate": annDvRate,
         "trailingAnnualDividendYield": annDvYield
     }
+    '''
 
-    dataFrame = pd.DataFrame(data, index=stock_list)
+    fast_data = {
+        "open": open,
+        "previousClose": previousClose,
+        "fiftyDayAverage": fiftyDayAverage,
+        "twoHundredDayAverage": twoHundredDayAverage,
+        "yearChange": yearChange,
+        "yearLow": yearLow,
+        "yearHigh": yearHigh
+    }
+
+    dataFrame = pd.DataFrame(fast_data, index=stock_list)
 
     #for each stock, call stock_stats and put returned list into conresponding pd.series (name, open, high, low, close)
     print(dataFrame)
     print()
     print(dataFrame.describe())
-    visualize_stocks(dataFrame)
+    #visualize_stocks(dataFrame)
 
 
 def db_stock_stats(stock_name, amount):
@@ -140,8 +173,12 @@ def db_compare_stocks(db_list): #prints the data metrics of stocks in the databa
     print(dataFrame)
     print()
     print(dataFrame.describe())
-    visualize_stocks(dataFrame)
+    analyze_stock(dataFrame)
+    #visualize_stocks(dataFrame)
 
+def analyze_stock(dataFrame):
+    dataFrame['default_rank'] = dataFrame['totalShareValue'].rank(method='max')
+    print(dataFrame)
 
 
 def visualize_stocks(dataFrame):#generates graph of stock data metrics (name is x-axis)
