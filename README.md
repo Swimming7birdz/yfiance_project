@@ -2,7 +2,7 @@
 
 ## **Description** 
 Stock Assistance Desktop application compares stock metrics, tracks shares, and reports their value.
-Uses yfinance retrieves data from Yahoo finance and pandas visualizes and analyzes information.
+yfinance retrieves information from Yahoo finance and pandas visualizes and analyzes the data.
 App utilizes mySQL database to store user info.
 
 ## **User Guide**
