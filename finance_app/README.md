@@ -8,13 +8,13 @@ App utilizes mySQL database to store user info.
 ## **User Guide**
 + Database fields: stock ticker name and number of stocks
   - Note: database is meant to only hold once instance of each share
-<br />
+
 + For simplicity database functions can be accessed through an interface, while finance functions can be accessed directed
-<br />
-+ Comparing shares in database 
+
++ Comparing shares in database <br />
 ```
-#COMPARING STOCKS 
-stock_name = "VOO"
+#COMPARING STOCKS EXAMPLE
+stock_name = "TSLA"
 ticker_exists(stock_name)
 
 stock_name1 = "T"
@@ -26,23 +26,24 @@ ticker_exists(stock_name2)
 stock_list = [stock_name, stock_name1, stock_name2]
 compare_stocks(stock_list)
 ```
-+ Comparing shares by manually searching them up
++ Comparing shares by manually searching them up <br />
 ```
 #Database contents
 #('VOO', 45)
 #('MMM', 30)
 
-#COMPARING DATABASE STOCKS
+#COMPARING DATABASE STOCKS EXAMPLE
 db_compare_stocks(table_list())
 ```
+
 + Metrics for comparing stocks:
- - opening price
- - previous closing price
- - 50 day average
- - 200 day average
- - year change in price
- - year high in price
- - year low in price
+   - opening price
+   - previous closing price
+   - 50 day average
+   - 200 day average
+   - year change in price
+   - year high in price
+   - year low in price
 
 ## **Limitations**
 1. Stocks information is limited to what Yahoo Finance provides
