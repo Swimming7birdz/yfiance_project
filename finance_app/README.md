@@ -46,8 +46,9 @@ App utilizes mySQL database to store user info.
 + [pandas documentation(user-guide)](https://pandas.pydata.org/docs/user_guide/index.html)
 
 ## **Setting up MySQL Database**
-'''
-# To connect MySQL database
+```
+#Connect MySQL database
+
 def create_database():
     mydb = mysql.connector.connect(
         host="localhost",
@@ -67,7 +68,8 @@ def create_database():
 
     mydb.close()
 
-#To connect ot MySQL database
+#Connect ot MySQL database
+
 def create_table(db_name, table_name):
     mydb = mysql.connector.connect(
         host="localhost",
@@ -86,5 +88,5 @@ def create_table(db_name, table_name):
     mycursor.execute(sql_statement)
 
     mydb.close()
-'''
+```
 
