@@ -69,7 +69,7 @@ db_compare_stocks(table_list())
 + [pandas documentation(user-guide)](https://pandas.pydata.org/docs/user_guide/index.html)
 
 ## **Setting up MySQL Database**
-'''
+```
 # To connect MySQL database
 def create_database():
     mydb = mysql.connector.connect(
@@ -109,5 +109,5 @@ def create_table(db_name, table_name):
     mycursor.execute(sql_statement)
 
     mydb.close()
-'''
+```
 
