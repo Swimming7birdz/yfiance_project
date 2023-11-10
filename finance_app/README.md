@@ -1,4 +1,4 @@
-# yfiance_project
+# Stock Assistant app
 
 ## **Description** 
 Stock Assistance Desktop application compares stock metrics, tracks shares, and reports their value.
