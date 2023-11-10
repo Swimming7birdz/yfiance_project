@@ -10,8 +10,7 @@ App utilizes mySQL database to store user info.
   - Note: database is meant to only hold once instance of each share
 
 + For simplicity database functions can be accessed through an interface, while finance functions can be accessed directed
-
-+ Comparing shares in database <br />
++ Comparing shares by manually searching them up <br />
 ```
 #COMPARING STOCKS EXAMPLE
 stock_name = "TSLA"
@@ -26,7 +25,7 @@ ticker_exists(stock_name2)
 stock_list = [stock_name, stock_name1, stock_name2]
 compare_stocks(stock_list)
 ```
-+ Comparing shares by manually searching them up <br />
++ Comparing shares in database <br />
 ```
 #Database contents
 #('VOO', 45)
