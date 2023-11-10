@@ -7,17 +7,42 @@ App utilizes mySQL database to store user info.
 
 ## **User Guide**
 + Database fields: stock ticker name and number of stocks
-  - Note: database is meant to only hold once instance of each share <br />
-+ For simplicity database functions can be accessed through an interface, while finance functions can be accessed directed <br />
-+ Able to compare shares in database and by manually searching them up by ticker name
+  - Note: database is meant to only hold once instance of each share
+<br />
++ For simplicity database functions can be accessed through an interface, while finance functions can be accessed directed
+<br />
++ Comparing shares in database 
+```
+#COMPARING STOCKS 
+stock_name = "VOO"
+ticker_exists(stock_name)
+
+stock_name1 = "T"
+ticker_exists(stock_name1)
+
+stock_name2 = "AAPL"
+ticker_exists(stock_name2)
+
+stock_list = [stock_name, stock_name1, stock_name2]
+compare_stocks(stock_list)
+```
++ Comparing shares by manually searching them up
+```
+#Database contents
+#('VOO', 45)
+#('MMM', 30)
+
+#COMPARING DATABASE STOCKS
+db_compare_stocks(table_list())
+```
 + Metrics for comparing stocks:
-  - opening price
-  - previous closing price
-  - 50 day average
-  - 200 day average
-  - year change in price
-  - year high in price
-  - year low in price
+ - opening price
+ - previous closing price
+ - 50 day average
+ - 200 day average
+ - year change in price
+ - year high in price
+ - year low in price
 
 ## **Limitations**
 1. Stocks information is limited to what Yahoo Finance provides
@@ -44,9 +69,8 @@ App utilizes mySQL database to store user info.
 + [pandas documentation(user-guide)](https://pandas.pydata.org/docs/user_guide/index.html)
 
 ## **Setting up MySQL Database**
-```
-#Connect MySQL database
-
+'''
+# To connect MySQL database
 def create_database():
     mydb = mysql.connector.connect(
         host="localhost",
@@ -66,8 +90,7 @@ def create_database():
 
     mydb.close()
 
-#Connect ot MySQL database
-
+#To connect ot MySQL database
 def create_table(db_name, table_name):
     mydb = mysql.connector.connect(
         host="localhost",
@@ -86,5 +109,5 @@ def create_table(db_name, table_name):
     mycursor.execute(sql_statement)
 
     mydb.close()
-```
+'''
 

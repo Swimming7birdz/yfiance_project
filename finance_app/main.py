@@ -8,11 +8,10 @@ ticker_exists(stock_name)
 stock_name1 = "T"
 ticker_exists(stock_name1)
 
-stock_name2 = "AAPL"
+stock_name2 = "TSLA"
 ticker_exists(stock_name2)
 
 stock_list = [stock_name, stock_name1, stock_name2]
-print(stock_list)
 compare_stocks(stock_list)
 
 # Database contents
@@ -20,7 +19,7 @@ compare_stocks(stock_list)
 # ('MMM', 30)
 
 # COMPARING DATABASE STOCKS
-#db_compare_stocks(table_list())
+db_compare_stocks(table_list())
 
 
 
