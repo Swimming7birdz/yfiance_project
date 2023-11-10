@@ -70,7 +70,7 @@ db_compare_stocks(table_list())
 
 ## **Setting up MySQL Database**
 ```
-# To connect MySQL database
+# Create MySQL database
 def create_database():
     mydb = mysql.connector.connect(
         host="localhost",
@@ -90,7 +90,7 @@ def create_database():
 
     mydb.close()
 
-#To connect ot MySQL database
+#Create MySQL table
 def create_table(db_name, table_name):
     mydb = mysql.connector.connect(
         host="localhost",
