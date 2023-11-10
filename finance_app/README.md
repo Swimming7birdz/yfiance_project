@@ -7,19 +7,17 @@ App utilizes mySQL database to store user info.
 
 ## **User Guide**
 + Database fields: stock ticker name and number of stocks
-  - Note: database is meant to only hold once instance of each share
-<br />
-+ For simplicity database functions can be accessed through an interface, while finance functions can be accessed directed
-<br />
-+ Able to compare shares in database and by manually searching them up
+  - Note: database is meant to only hold once instance of each share <br />
++ For simplicity database functions can be accessed through an interface, while finance functions can be accessed directed <br />
++ Able to compare shares in database and by manually searching them up by ticker name
 + Metrics for comparing stocks:
- - opening price
- - previous closing price
- - 50 day average
- - 200 day average
- - year change in price
- - year high in price
- - year low in price
+  - opening price
+  - previous closing price
+  - 50 day average
+  - 200 day average
+  - year change in price
+  - year high in price
+  - year low in price
 
 ## **Limitations**
 1. Stocks information is limited to what Yahoo Finance provides
