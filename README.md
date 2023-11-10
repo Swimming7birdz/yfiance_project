@@ -6,7 +6,13 @@ Uses yfinance retrieves data from Yahoo finance and pandas visualizes and analyz
 App utilizes mySQL database to store user info.
 
 ## **User Guide**
++ Database contains stock ticker name and number of stocks
+  - Note: database is meant to only hold once instance of each stock
 
+## **Limitations**
+1. Stocks information is limited to what Yahoo Finance provides
+2. Furthermore certain stocks or stock information may be unavailable
+3. Stock values may not be accurate as yfinance supplies share prices only when markets are open 
 
 
 ## **Language Requirements**
@@ -20,9 +26,10 @@ App utilizes mySQL database to store user info.
 + Matplotlib <br />
 
 ## **Updates**
-+ 11/5: .info returns errors, using .fast_info (yfinance)
++ 11/5: .info returns errors, temporarily replaced with .fast_info (yfinance)
+  - while .fast_info provides less information, this is the only viable solution for the time
 
 ### **Important links**
-+ [yfinance documentation] (https://pypi.org/project/yfinance).
-+ [pandas documentation(api)] (https://pandas.pydata.org/docs/reference/index.html).
-+ [pandas documentation(user-guide)] (https://pandas.pydata.org/docs/user_guide/index.html).
++ [yfinance documentation](https://pypi.org/project/yfinance)
++ [pandas documentation(api)](https://pandas.pydata.org/docs/reference/index.html)
++ [pandas documentation(user-guide)](https://pandas.pydata.org/docs/user_guide/index.html)
