@@ -1,4 +1,4 @@
-from interface import *
+from db_interface import *
 
 
 #COMPARING STOCKS 

@@ -192,6 +192,8 @@ def visualize_stocks(dataFrame):#generates graph of stock data metrics (name is 
         print("Graph failed to generate")
 
 '''
+MORE yFinance Functions:
+
 print_news_info(stock.news)
 
 print(stock.history(period="1mo")) #lists dates, open, high, low, close, volume, dividends, and stock splits

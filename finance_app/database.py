@@ -1,48 +1,5 @@
 import mysql.connector
 
-'''
-SET-UP DATABASE:
-
-# To connect MySQL database
-def create_database():
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root", 
-        password = "Port404",
-        )
-
-    print(mydb)
-    mycursor = mydb.cursor()
-
-    mycursor.execute("DROP database IF EXISTS portfolio")
-    #dropping portfolio database if it already exists
-
-    mycursor.execute("CREATE DATABASE portfolio")
-    print(mycursor.execute("SHOW DATABASES"))
-    print(mycursor.fetchall())
-
-    mydb.close()
-
-#To connect ot MySQL database
-def create_table(db_name, table_name):
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root", 
-        password = "Port404",
-        database = db_name
-        )
-
-    mycursor = mydb.cursor()
-
-    sql_statement = "DROP TABLE IF EXISTS " + table_name
-    mycursor.execute(sql_statement)
-    #dropping STOCKS table if it already exists
-
-    sql_statement = "CREATE TABLE STOCKS (NAME CHAR(20) NOT NULL, AMOUNT INT)"
-    mycursor.execute(sql_statement)
-
-    mydb.close()
-'''
 
 def show_tables(db_name): #returns list of database tables
     mydb = mysql.connector.connect(host="localhost", user="root",  password = "Port404", database = db_name)
